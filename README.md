@@ -1,4 +1,4 @@
-# xiaomi_shop
+# xiaomi_shop(小米商城)
 
 这是一个 Java Web 项目，是仿照小米官网的网上商城小米商城项目练手项目
 
