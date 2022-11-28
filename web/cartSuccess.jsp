@@ -20,7 +20,7 @@
 			    <h3 class="text-default"><span class="glyphicon glyphicon-ok-sign"></span>&nbsp;&nbsp;&nbsp;&nbsp;添加购物车成功!!</h3>
 				<hr>
 				<a href="${pageContext.request.contextPath}/cart?method=show&uid=${loginUser.uid}" class="btn btn-primary">查看购物车</a>&nbsp;&nbsp;&nbsp;&nbsp;
-				<a href="#" class="btn btn-default">继续购物</a>
+				<a href="${pageContext.request.contextPath}/product?method=show&tid=1" class="btn btn-default">继续购物</a>
 			</div>
 		</div>
 		

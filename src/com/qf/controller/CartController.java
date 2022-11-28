@@ -14,11 +14,15 @@ import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * @author 小灰灰呀
+ */
 @WebServlet("/cart")
-
 public class CartController extends BaseServlet {
 
-    //加入购物车
+    /**
+     * 1.加入购物车
+     */
     public String create(HttpServletRequest request, HttpServletResponse response) throws SQLException, InvocationTargetException, IllegalAccessException {
 
         //1.判断用户是否登录，没有登录跳转到登录页面
@@ -43,7 +47,9 @@ public class CartController extends BaseServlet {
         return Constants.FORWARD + "/cartSuccess.jsp";
     }
 
-    //查看购物车
+    /**
+     * 2.查看购物车
+     */
     public String show(HttpServletRequest request, HttpServletResponse response) throws SQLException, InvocationTargetException, IllegalAccessException {
         //1.判断用户是否登录
         HttpSession session = request.getSession();
@@ -68,7 +74,9 @@ public class CartController extends BaseServlet {
         return Constants.FORWARD + "/cart.jsp";
     }
 
-    //购物车中删除物品
+    /**
+     * 3.购物车中删除物品
+     */
     public String delete(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
         //1.获取请求参数
@@ -82,7 +90,9 @@ public class CartController extends BaseServlet {
         return Constants.FORWARD + "/cart?method=show";
     }
 
-    //购物车中数量更改
+    /**
+     * 4.购物车中数量更改
+     */
     public String update(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
         //1.获取请求参数      cid     商品单价price       商品修改后数量cnum
@@ -98,7 +108,9 @@ public class CartController extends BaseServlet {
         return Constants.FORWARD + "/cart?method=show";
     }
 
-    //清空购物车
+    /**
+     * 5.清空购物车
+     */
     public String clear(HttpServletRequest request, HttpServletResponse response) throws SQLException {
 
         //1.获取请求参数

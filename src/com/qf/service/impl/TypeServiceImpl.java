@@ -8,13 +8,19 @@ import com.qf.service.TypeService;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * @author 小灰灰呀
+ */
 public class TypeServiceImpl implements TypeService {
 
+    /**
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Type> findAll() throws SQLException {
         //这里调用TypeDao接口（Dao层）
         TypeDao typeDao = new TypeDaoImpl();
-        List<Type> types = typeDao.selectAll();
-        return types;
+        return typeDao.selectAll();
     }
 }

@@ -13,8 +13,19 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * @author 小灰灰呀
+ */
 public class CartServiceImpl implements CartService {
-     //1.向购物车中添加物品
+    /**
+     * 1.向购物车中添加物品
+     *
+     * @param uid
+     * @param pid
+     * @throws SQLException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     @Override
     public void createCart(int uid, String pid) throws SQLException, InvocationTargetException, IllegalAccessException {
         //1.判断商品是否已经存在
@@ -43,24 +54,43 @@ public class CartServiceImpl implements CartService {
 
     }
 
-    //2.根据uid查询所有商品
+    /**
+     * 2.根据uid查询所有商品
+     *
+     * @param uid
+     * @return
+     * @throws SQLException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     @Override
     public List<Cart> findAll(int uid) throws SQLException, InvocationTargetException, IllegalAccessException {
 
         CartDao cartDao = new CartDaoImpl();
         //1.根据用户 id 查询对应购物车里面的商品
-        List<Cart> carts = cartDao.selectCartByUid(uid);
-        return carts;
+        return cartDao.selectCartByUid(uid);
     }
 
-    //3.根据cid删除购物车中物品
+    /**
+     * 3.根据cid删除购物车中物品
+     *
+     * @param cid
+     * @throws SQLException
+     */
     @Override
     public void deleteCartByCid(String cid) throws SQLException {
         CartDao cartDao = new CartDaoImpl();
         cartDao.deleteCartByCid(cid);
     }
 
-    //4.购物车修改数量
+    /**
+     * 4.购物车修改数量
+     *
+     * @param cid
+     * @param price
+     * @param cnum
+     * @throws SQLException
+     */
     @Override
     public void updateCartByCid(String cid, String price, String cnum) throws SQLException {
 
@@ -74,15 +104,17 @@ public class CartServiceImpl implements CartService {
         //3.数据库中修改
         CartDao cartDao = new CartDaoImpl();
         cartDao.updateByCid(count, cnumbig, cid);
-
     }
 
-    //5.清空购物车
+    /**
+     * 5.清空购物车
+     *
+     * @param uid
+     * @throws SQLException
+     */
     @Override
     public void clearCartByUid(String uid) throws SQLException {
-
         CartDao cartDao = new CartDaoImpl();
         cartDao.clearCartByUid(uid);
-
     }
 }

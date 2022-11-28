@@ -10,19 +10,19 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 
 public class BaseServlet extends HttpServlet {
-    //重写service方法，来处理反射的业务逻辑
+    /**
+     * 重写service方法，来处理反射的业务逻辑
+     */
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
 
-
         //1.获取请求参数（标识符）
         String  methodStr =req.getParameter(Constants.TAG);
-        //我们在这做一个处理。2.如果method没有获取到值！我们就跳转到首页！（标识符异常处理）
+        //2.如果method没有获取到值  就跳转到首页 （标识符异常处理）
         if (methodStr==null&& methodStr.equals("")){
             methodStr= Constants.INDEX;
         }
-
 
         //3.反射调用对应的业务逻辑方法
         Class clazz=this.getClass();

@@ -8,8 +8,17 @@ import com.qf.utils.MD5Utils;
 
 import java.sql.SQLException;
 
+/**
+ * @author 小灰灰呀
+ */
 public class UserServiceImpl implements UserService {
-    //查询用户名是否存在
+    /**
+     * 1.查询用户名是否存在
+     *
+     * @param username
+     * @return
+     * @throws SQLException
+     */
     @Override
     public boolean checkedUser(String username) throws SQLException {
 
@@ -17,24 +26,30 @@ public class UserServiceImpl implements UserService {
         UserDao userDao = new UserDaoImpl();
         User user = userDao.selectUserByUname(username);
 
-        //处理返回值
-        if (user != null) {
-            return true;
-        }
-
-        //没有查询到
-        return false;
+        //没有查询到 处理返回值
+        return user != null;
     }
 
-    //注册业务逻辑
+    /**
+     * 2.注册业务逻辑
+     *
+     * @param user
+     * @return
+     * @throws SQLException
+     */
     @Override
     public int registerUser(User user) throws SQLException {
         UserDao userDao = new UserDaoImpl();
-        int row = userDao.insertUser(user);
-        return row;
+        return userDao.insertUser(user);
     }
 
-    //登录的业务逻辑
+    /**
+     * 3.登录的业务逻辑
+     *
+     * @param username
+     * @param password
+     * @throws SQLException
+     */
     @Override
     public User login(String username, String password) throws SQLException {
         //1.密码加密处理（数据库中密码已加密处理）便于比较

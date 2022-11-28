@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * @author 小灰灰呀
+ */
 @WebServlet("/code")
 public class CodeController extends BaseServlet {
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {

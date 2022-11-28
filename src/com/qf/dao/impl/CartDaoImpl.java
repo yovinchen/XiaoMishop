@@ -6,7 +6,6 @@ import com.qf.entity.Product;
 import com.qf.utils.C3P0Utils;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 
@@ -17,7 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author 小灰灰呀
+ */
 public class CartDaoImpl implements CartDao {
+    /**
+     * 1.查询购物车
+     *
+     * @param uid
+     * @param pid
+     * @return
+     * @throws SQLException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     @Override
     public Cart hasCart(int uid, String pid) throws SQLException, InvocationTargetException, IllegalAccessException {
         //cart-->product 间接查询,多表查询
@@ -40,8 +52,6 @@ public class CartDaoImpl implements CartDao {
             return null;
         }
 
-//        Product product = queryRunner.query(sql, new BeanHandler<Product>(Product.class), uid, pid);
-//        Cart cart = queryRunner.query(sql, new BeanHandler<Cart>(Cart.class), uid, pid);
         Product product = new Product();
         Cart cart = new Cart();
 
@@ -54,6 +64,12 @@ public class CartDaoImpl implements CartDao {
         return cart;
     }
 
+    /**
+     * 2.更新购物车
+     *
+     * @param cart
+     * @throws SQLException
+     */
     @Override
     public void updateCart(Cart cart) throws SQLException {
 
@@ -67,6 +83,12 @@ public class CartDaoImpl implements CartDao {
         queryRunner.update(sql, cart.getCnum(), cart.getCcount(), cart.getCid());
     }
 
+    /**
+     * 3.加入购物车
+     *
+     * @param cart
+     * @throws SQLException
+     */
     @Override
     public void insertCart(Cart cart) throws SQLException {
 
@@ -81,6 +103,15 @@ public class CartDaoImpl implements CartDao {
 
     }
 
+    /**
+     * 4.通过uid查询购物车
+     *
+     * @param uid
+     * @return
+     * @throws SQLException
+     * @throws InvocationTargetException
+     * @throws IllegalAccessException
+     */
     @Override
     public List<Cart> selectCartByUid(int uid) throws SQLException, InvocationTargetException, IllegalAccessException {
 
@@ -94,7 +125,7 @@ public class CartDaoImpl implements CartDao {
                 "c.u_id as uid, c.c_count as ccount, c.c_num as cnum " +
                 "from product p join cart c on p.p_id = c.p_id where c.u_id = ? ;";
 
-        //3.执行sql
+        //3.整合成为 list 集合
         List<Map<String, Object>> list = queryRunner.query(sql, new MapListHandler(), uid);
 
         //判空
@@ -113,7 +144,7 @@ public class CartDaoImpl implements CartDao {
             BeanUtils.populate(cart, map);
             BeanUtils.populate(product, map);
 
-            //手动将 product 关联到 Cart
+            //将 product 关联到 Cart
             cart.setProduct(product);
             //添加数据到 carts
             carts.add(cart);
@@ -122,6 +153,12 @@ public class CartDaoImpl implements CartDao {
         return carts;
     }
 
+    /**
+     * 5.删除购物车中单项物品
+     *
+     * @param cid
+     * @throws SQLException
+     */
     @Override
     public void deleteCartByCid(String cid) throws SQLException {
 
@@ -135,6 +172,15 @@ public class CartDaoImpl implements CartDao {
         queryRunner.update(sql, cid);
     }
 
+
+    /**
+     * 6.更新购物车中单项物品
+     *
+     * @param count
+     * @param cnumbig
+     * @param cid
+     * @throws SQLException
+     */
     @Override
     public void updateByCid(BigDecimal count, BigDecimal cnumbig, String cid) throws SQLException {
 
@@ -148,6 +194,13 @@ public class CartDaoImpl implements CartDao {
         queryRunner.update(sql, count, cnumbig, cid);
     }
 
+
+    /**
+     * 7.清除购物车
+     *
+     * @param uid
+     * @throws SQLException
+     */
     @Override
     public void clearCartByUid(String uid) throws SQLException {
         //1.创建 QueryRunner对象
@@ -159,5 +212,4 @@ public class CartDaoImpl implements CartDao {
         //3.执行sql
         queryRunner.update(sql, uid);
     }
-
 }

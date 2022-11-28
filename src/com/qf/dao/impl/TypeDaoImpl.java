@@ -9,7 +9,14 @@ import org.apache.commons.dbutils.handlers.BeanListHandler;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * @author 小灰灰呀
+ */
 public class TypeDaoImpl implements TypeDao {
+    /**
+     * @return
+     * @throws SQLException
+     */
     @Override
     public List<Type> selectAll() throws SQLException {
         //1.创建 QueryRunner对象
@@ -19,8 +26,6 @@ public class TypeDaoImpl implements TypeDao {
         String sql = "select t_id as tid ,t_name as tname ,t_info as tinfo from type limit 5;";
 
         //3.执行sql语句
-        List<Type> list = queryRunner.query(sql, new BeanListHandler<Type>(Type.class));
-
-        return list;
+        return queryRunner.query(sql, new BeanListHandler<>(Type.class));
     }
 }

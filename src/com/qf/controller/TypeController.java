@@ -22,8 +22,7 @@ public class TypeController extends BaseServlet {
 
         //2.将集合转换为 json 数据
         Gson gson = new Gson();
-        String json = gson.toJson(types);
 
-        return json;
+        return gson.toJson(types);
     }
 }
